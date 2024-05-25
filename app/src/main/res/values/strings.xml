@@ -4,4 +4,8 @@
     <string name="even_to_space">Even to space with us! Together</string>
     <string name="pick_up_delivery">Pickup delivery at your door</string>
     <string name="our_app_can_send_u_everywhere">Our app can send you everywhere, even space. For only $2.99 per month</string>
+    <string name="login">Login</string>
+    <string name="email">E-mail</string>
+    <string name="your_email_or_phone">Your email or phone</string>
+    <string name="password">Password</string>
 </resources>

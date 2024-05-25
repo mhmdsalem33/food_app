@@ -6,4 +6,5 @@
         <item name="android:windowSplashScreenBackground">@color/orange</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/avd_foodies</item>
     </style>
+
 </resources>

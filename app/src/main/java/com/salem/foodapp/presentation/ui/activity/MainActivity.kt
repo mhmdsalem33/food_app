@@ -12,16 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.salem.foodapp.presentation.theme.FoodAppTheme
+import com.salem.foodapp.presentation.ui.activity.screens.auth.login.LoginScreen
 import com.salem.foodapp.presentation.ui.activity.screens.auth.onboarding.OnBoardingScreen
+import kotlin.time.measureTime
 
 class MainActivity : ComponentActivity() {
 
 
-    @OptIn(ExperimentalPagerApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen().setKeepOnScreenCondition{
-            false
-        }
+        installSplashScreen().setKeepOnScreenCondition{ false }
         super.onCreate(savedInstanceState)
         setContent {
 
@@ -31,7 +30,9 @@ class MainActivity : ComponentActivity() {
 //                )
 //                { innerPadding ->
 //                }
-                OnBoardingScreen()
+//                OnBoardingScreen()
+
+                LoginScreen()
 
             }
         }
