@@ -23,7 +23,6 @@ class MainActivity : ComponentActivity() {
             false
         }
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
         setContent {
 
             FoodAppTheme {
@@ -33,11 +32,6 @@ class MainActivity : ComponentActivity() {
 //                { innerPadding ->
 //                }
                 OnBoardingScreen()
-
-
-
-
-//                OnBoardingScreen()
 
             }
         }
