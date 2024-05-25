@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.salem.foodapp.presentation.theme.FoodAppTheme
 import com.salem.foodapp.presentation.ui.activity.screens.auth.onboarding.OnBoardingScreen
@@ -18,6 +19,9 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalPagerApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen().setKeepOnScreenCondition{
+            true
+        }
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
         setContent {

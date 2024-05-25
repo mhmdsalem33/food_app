@@ -122,13 +122,13 @@ fun OnBoardingContent(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(id = item.title),
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
+                    text          = stringResource(id = item.title),
+                    style         = MaterialTheme.typography.headlineMedium,
+                    color         = MaterialTheme.colorScheme.onBackground,
+                    fontWeight    = FontWeight.Bold,
+                    textAlign     = TextAlign.Center,
                     letterSpacing = 1.sp,
-                    fontFamily = gilroySemiBold()
+                    fontFamily    = gilroySemiBold()
                 )
 
                 SpaceHeight8()
@@ -153,7 +153,6 @@ fun OnBoardingContent(
                         }
                     }
                 )
-
                 SpaceHeight60()
             }
         }
