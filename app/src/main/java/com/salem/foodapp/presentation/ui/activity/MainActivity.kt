@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalPagerApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen().setKeepOnScreenCondition{
-            true
+            false
         }
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
