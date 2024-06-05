@@ -8,4 +8,10 @@
     <string name="email">E-mail</string>
     <string name="your_email_or_phone">Your email or phone</string>
     <string name="password">Password</string>
+    <string name="forget_password">Forgot password?</string>
+    <string name="dont_have_account">Don’t have an account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in_with">Sign in with</string>
+    <string name="face_book_capital">FACEBOOK</string>
+    <string name="google_capital">GOOGLE</string>
 </resources>

@@ -1,12 +1,16 @@
 package com.salem.foodapp.presentation.ui.activity.screens.auth.login
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -14,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -45,10 +50,13 @@ import com.salem.foodapp.presentation.ui.theme.poppinsSemiBold
 import com.salem.foodapp.presentation.widgets.CustomOutlinedTextField
 import com.salem.foodapp.presentation.widgets.TextSofiaPro
 import com.salem.foodapp.presentation.widgets.buttons.LoadingButton
+import com.salem.foodapp.presentation.widgets.buttons.SocialMediaLogin
 import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight15
 import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight20
 import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight30
 import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight5
+import com.salem.foodapp.presentation.widgets.spaces.SpaceWidth20
+import com.salem.foodapp.presentation.widgets.spaces.SpaceWidth5
 
 @Composable
 fun LoginScreen(navController: NavHostController ? = null ) {
@@ -65,9 +73,11 @@ fun LoginScreen(navController: NavHostController ? = null ) {
     )
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .verticalScroll(rememberScrollState)
             .background(Color.White)
+            .imePadding() // for enable scroll when keyboard is opened
     )
     {
 
@@ -95,7 +105,7 @@ fun LoginScreen(navController: NavHostController ? = null ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 20.dp, end = 20.dp, top = 200.dp),
+                .padding(start = 25.dp, end = 25.dp, top = 120.dp),
 //            verticalArrangement = Arrangement.Center
         )
         {
@@ -181,22 +191,18 @@ fun LoginScreen(navController: NavHostController ? = null ) {
                     localFocusManager.clearFocus()
                 }
             )
-
-
             SpaceHeight30()
             
             
             Text(
-                text = "Forgot password?",
+                text = stringResource(id = R.string.forget_password),
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 fontFamily = poppinsMedium(),
                 color = colorResource(id = R.color.orange),
                 fontSize = 15.sp
-
             )
 
             SpaceHeight30()
-
 
             var loadingLoginButtonState by remember { mutableStateOf(false) }
 
@@ -207,10 +213,83 @@ fun LoginScreen(navController: NavHostController ? = null ) {
 
             SpaceHeight30()
 
+            // don't have an account || sign up
+
+            Row (
+                modifier = Modifier.fillMaxWidth() ,
+                horizontalArrangement = Arrangement.Center
+                ){
+                Text(
+                    text = stringResource(id = R.string.dont_have_account),
+                    fontFamily = poppinsMedium(),
+                    color = colorResource(id = R.color.black),
+                    fontSize = 15.sp
+                )
+
+                SpaceWidth5()
+
+                Text(
+                    text = stringResource(id = R.string.sign_up),
+                    fontFamily = poppinsMedium(),
+                    color = colorResource(id = R.color.orange),
+                    fontSize = 15.sp
+                )
+            }
+            SpaceHeight30()
+
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Divider(
+                    modifier = Modifier.weight(1f)
+                )
+
+                SpaceWidth20()
+
+                // sign in with
+                Text(
+                    text = stringResource(id = R.string.sign_in_with),
+                    fontFamily = poppinsMedium(),
+                    color = colorResource(id = R.color.gray_6),
+                    fontSize = 15.sp,
+                )
+                SpaceWidth20()
+
+                Divider(
+                    modifier = Modifier.weight(1f)
+                )
+            }
+            SpaceHeight30()
+
+
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+                ){
+                // sign in with facebook
+                SocialMediaLogin(
+                    textName = stringResource(id = R.string.face_book_capital),
+                    icon = R.drawable.face_book_icon,
+                    onClick = {
+                        Log.e("testApp" , "click on facebook")
+                    }
+                )
+
+                SpaceWidth20()
+                // sign in with google
+
+                SocialMediaLogin(
+                    textName = stringResource(id = R.string.google_capital),
+                    icon = R.drawable.google_icon,
+                    onClick = {
+                        Log.e("testApp" , "click on google")
+                    }
+                )
+            }
+            SpaceHeight30()
         }
-
     }
-
 }
 
 
