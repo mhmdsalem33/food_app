@@ -10,10 +10,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -54,7 +51,14 @@ fun CustomOutlinedTextField(
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = colorResource(id = R.color.gray_2),
             unfocusedBorderColor = colorResource(id = R.color.gray_2),
-            cursorColor = colorResource(id = R.color.gray_1)
+            cursorColor = colorResource(id = R.color.gray_1),
+            focusedSuffixColor = colorResource(id = R.color.orange),
+            unfocusedSuffixColor = colorResource(id = R.color.orange),
+            focusedPrefixColor =  colorResource(id = R.color.orange),
+            unfocusedPrefixColor =  colorResource(id = R.color.orange),
+            unfocusedTrailingIconColor =  colorResource(id = R.color.orange),
+            focusedTrailingIconColor =  colorResource(id = R.color.orange),
+
         ),
         keyboardOptions = KeyboardOptions(
             capitalization = KeyboardCapitalization.None,

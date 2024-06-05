@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -47,7 +48,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.salem.foodapp.R
 import com.salem.foodapp.presentation.extentions.BackHandler
-import com.salem.foodapp.presentation.navigation.OnBoardingScreen
 import com.salem.foodapp.presentation.ui.theme.ChangeStatusBarColorAndNavigationBar
 import com.salem.foodapp.presentation.ui.theme.poppinsMedium
 import com.salem.foodapp.presentation.ui.theme.poppinsSemiBold
@@ -63,7 +63,7 @@ import com.salem.foodapp.presentation.widgets.spaces.SpaceWidth20
 import com.salem.foodapp.presentation.widgets.spaces.SpaceWidth5
 
 @Composable
-fun LoginScreen(navController: NavHostController ? = null ) {
+fun LoginScreen(navController: NavHostController? = null) {
 
 
     // activity
@@ -73,6 +73,9 @@ fun LoginScreen(navController: NavHostController ? = null ) {
     val localFocusManager = LocalFocusManager.current
     val rememberScrollState = rememberScrollState()
 
+    val interactionSource = remember { MutableInteractionSource() }
+
+
 
 
     ChangeStatusBarColorAndNavigationBar(
@@ -80,7 +83,7 @@ fun LoginScreen(navController: NavHostController ? = null ) {
         isNavigationBarIconColorDark = true,
         isContentTopTransparent = true,
 
-    )
+        )
 
     // main box
     Box(
@@ -131,7 +134,6 @@ fun LoginScreen(navController: NavHostController ? = null ) {
 
 
             // text  email
-
             TextSofiaPro(text = stringResource(id = R.string.email))
 
             SpaceHeight15()
@@ -152,7 +154,11 @@ fun LoginScreen(navController: NavHostController ? = null ) {
                         Image(
                             imageVector = Icons.Default.Clear,
                             contentDescription = "clear icon",
-                            modifier = Modifier.clickable { email = "" }
+                            modifier = Modifier.clickable(
+                                interactionSource = interactionSource,
+                                indication = null
+                            ) { email = "" },
+                            colorFilter = ColorFilter.tint(color = colorResource(id = R.color.gray_4))
                         )
                     }
                 },
@@ -171,7 +177,6 @@ fun LoginScreen(navController: NavHostController ? = null ) {
             var password by remember { mutableStateOf("") }
             var isPasswordVisible by remember { mutableStateOf(false) }
 
-
             // outlined password text field
             CustomOutlinedTextField(
                 value = password,
@@ -183,13 +188,18 @@ fun LoginScreen(navController: NavHostController ? = null ) {
                 imeAction = ImeAction.Done,
                 trailingIcon = {
                     if (password.isNotEmpty()) {
-                        val icon = if (isPasswordVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility
+                        val icon =
+                            if (isPasswordVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility
                         Image(
                             imageVector = icon,
                             contentDescription = if (isPasswordVisible) "hide password" else "show password",
-                            modifier = Modifier.clickable {
-                                isPasswordVisible = !isPasswordVisible
-                            },
+                            modifier = Modifier
+                                .clickable(
+                                    interactionSource = interactionSource,
+                                    indication = null
+                                ) {
+                                    isPasswordVisible = !isPasswordVisible
+                                },
                             colorFilter = ColorFilter.tint(color = colorResource(id = R.color.gray_4))
                         )
                     }
@@ -203,8 +213,8 @@ fun LoginScreen(navController: NavHostController ? = null ) {
                 }
             )
             SpaceHeight30()
-            
-            
+
+
             Text(
                 text = stringResource(id = R.string.forget_password),
                 modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -217,6 +227,8 @@ fun LoginScreen(navController: NavHostController ? = null ) {
 
             var loadingLoginButtonState by remember { mutableStateOf(false) }
 
+
+            // Login button
             LoadingButton(
                 onClick = { loadingLoginButtonState = true },
                 loading = loadingLoginButtonState,
@@ -226,10 +238,10 @@ fun LoginScreen(navController: NavHostController ? = null ) {
 
             // don't have an account || sign up
 
-            Row (
-                modifier = Modifier.fillMaxWidth() ,
+            Row(
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
-                ){
+            ) {
                 Text(
                     text = stringResource(id = R.string.dont_have_account),
                     fontFamily = poppinsMedium(),
@@ -248,10 +260,10 @@ fun LoginScreen(navController: NavHostController ? = null ) {
             }
             SpaceHeight30()
 
-            Row (
+            Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
-            ){
+            ) {
                 Divider(
                     modifier = Modifier.weight(1f)
                 )
@@ -274,16 +286,16 @@ fun LoginScreen(navController: NavHostController ? = null ) {
             SpaceHeight30()
 
 
-            Row (
+            Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
-                ){
+            ) {
                 // sign in with facebook
                 SocialMediaLogin(
                     textName = stringResource(id = R.string.face_book_capital),
                     icon = R.drawable.face_book_icon,
                     onClick = {
-                        Log.e("testApp" , "click on facebook")
+                        Log.e("testApp", "click on facebook")
                     }
                 )
 
@@ -294,7 +306,7 @@ fun LoginScreen(navController: NavHostController ? = null ) {
                     textName = stringResource(id = R.string.google_capital),
                     icon = R.drawable.google_icon,
                     onClick = {
-                        Log.e("testApp" , "click on google")
+                        Log.e("testApp", "click on google")
                     }
                 )
             }
@@ -302,12 +314,11 @@ fun LoginScreen(navController: NavHostController ? = null ) {
         }
     }
 
-
     // On Back Pressed
     BackHandler(
         onBackPressed = {
             activity?.finish()
-    })
+        })
 
 }
 
