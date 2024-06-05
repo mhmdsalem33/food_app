@@ -1,5 +1,6 @@
 package com.salem.foodapp.presentation.ui.activity.screens.auth.onboarding
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.salem.foodapp.R
 import com.salem.foodapp.presentation.navigation.LoginScreen
@@ -28,7 +30,10 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun OnboardingScreen(navController: NavController ? = null ) {
+fun OnboardingScreen(navController: NavController? = null, onBoardingViewModel: OnBoardingViewModel ? = null ) {
+
+
+//    val onBoardingViewModel: OnBoardingViewModel = viewModel() // Use viewModel() here
 
     ChangeStatusBarColorAndNavigationBar(
         isStatusBarIconColorDark = true,
@@ -64,6 +69,7 @@ fun OnboardingScreen(navController: NavController ? = null ) {
                             if (pagerState.currentPage < pages.size - 1) {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             } else {
+                                onBoardingViewModel?.setOnboardingCompleted()
                                 navController?.navigate(LoginScreen)
                             }
                         }

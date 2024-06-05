@@ -14,14 +14,12 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
@@ -37,12 +35,14 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.salem.foodapp.R
 import com.salem.foodapp.presentation.ui.theme.omnesArabicMedium
+import com.salem.foodapp.presentation.ui.effects.NoRippleInteractionSource
 
 @Composable
 fun LoadingButton(
     onClick: () -> Unit,
     loading: Boolean,
 ) {
+
     val transition = updateTransition(
         targetState = loading,
         label = "master transition",
@@ -56,8 +56,11 @@ fun LoadingButton(
         targetValueByState = { toLoading -> if (toLoading) 12.dp else 24.dp },
         label = "button's content padding",
     )
+
+
     Button(
-        onClick = onClick,
+        interactionSource = NoRippleInteractionSource(),
+                onClick = onClick,
         contentPadding = PaddingValues(
             horizontal = horizontalContentPadding,
             vertical = 8.dp,
@@ -83,7 +86,8 @@ fun LoadingButton(
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
+
+
 @Composable
 private fun LoadingContent(
     loadingStateTransition: Transition<Boolean>,
@@ -140,8 +144,6 @@ private fun PrimaryContent(
             text = stringResource(id = R.string.login).uppercase(),
             modifier = Modifier.padding(horizontal = 4.dp),
             fontFamily = omnesArabicMedium(),
-
-
             )
     }
 }
