@@ -26,7 +26,6 @@ import com.salem.foodapp.R
 import com.salem.foodapp.presentation.ui.theme.OmnesArabic
 import com.salem.foodapp.presentation.ui.theme.gilroySemiBold
 import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight25
-import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight60
 import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight8
 
 @Composable
