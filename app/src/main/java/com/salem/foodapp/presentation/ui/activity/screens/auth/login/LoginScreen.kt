@@ -1,5 +1,6 @@
 package com.salem.foodapp.presentation.ui.activity.screens.auth.login
 
+import android.app.Activity
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
@@ -44,6 +46,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.salem.foodapp.R
+import com.salem.foodapp.presentation.extentions.BackHandler
+import com.salem.foodapp.presentation.navigation.OnBoardingScreen
 import com.salem.foodapp.presentation.ui.theme.ChangeStatusBarColorAndNavigationBar
 import com.salem.foodapp.presentation.ui.theme.poppinsMedium
 import com.salem.foodapp.presentation.ui.theme.poppinsSemiBold
@@ -61,9 +65,15 @@ import com.salem.foodapp.presentation.widgets.spaces.SpaceWidth5
 @Composable
 fun LoginScreen(navController: NavHostController ? = null ) {
 
+
+    // activity
+    val activity = (LocalContext.current as? Activity)
+
     val keyboardController = LocalSoftwareKeyboardController.current
     val localFocusManager = LocalFocusManager.current
     val rememberScrollState = rememberScrollState()
+
+
 
     ChangeStatusBarColorAndNavigationBar(
         isStatusBarIconColorDark = true,
@@ -72,6 +82,7 @@ fun LoginScreen(navController: NavHostController ? = null ) {
 
     )
 
+    // main box
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -290,6 +301,14 @@ fun LoginScreen(navController: NavHostController ? = null ) {
             SpaceHeight30()
         }
     }
+
+
+    // On Back Pressed
+    BackHandler(
+        onBackPressed = {
+            activity?.finish()
+    })
+
 }
 
 
