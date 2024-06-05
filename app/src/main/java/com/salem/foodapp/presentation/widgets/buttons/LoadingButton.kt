@@ -36,7 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.salem.foodapp.R
-import com.salem.foodapp.presentation.theme.omnesArabicMedium
+import com.salem.foodapp.presentation.ui.theme.omnesArabicMedium
 
 @Composable
 fun LoadingButton(

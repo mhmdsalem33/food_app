@@ -1,4 +1,4 @@
-package com.salem.foodapp.presentation.theme
+package com.salem.foodapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

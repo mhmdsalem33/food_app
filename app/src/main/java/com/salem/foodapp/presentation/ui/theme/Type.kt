@@ -1,4 +1,4 @@
-package com.salem.foodapp.presentation.theme
+package com.salem.foodapp.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

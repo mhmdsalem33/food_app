@@ -3,10 +3,7 @@
 
 buildscript {
     dependencies {
-//        classpath ("com.android.tools.build:gradle:8.1.2")
-////        classpath ("com.google.dagger:hilt-android-gradle-plugin:2.40.5")
-//        classpath ("com.google.dagger:hilt-android-gradle-plugin:2.48")
-//        classpath ("com.novoda:bintray-release:0.9.2")
+        classpath ("com.google.dagger:hilt-android-gradle-plugin:2.48")
 
     }
 
@@ -21,4 +18,6 @@ buildscript {
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.jetbrains.kotlin.android) apply false
+    id ("com.google.devtools.ksp") version "1.9.21-1.0.15" apply false
+
 }

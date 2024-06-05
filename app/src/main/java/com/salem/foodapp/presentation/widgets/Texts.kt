@@ -6,7 +6,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.salem.foodapp.R
-import com.salem.foodapp.presentation.theme.sofiaProLight
+import com.salem.foodapp.presentation.ui.theme.sofiaProLight
 
 @Composable
 fun TextSofiaPro(

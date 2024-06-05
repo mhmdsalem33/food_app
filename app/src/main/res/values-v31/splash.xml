@@ -2,9 +2,11 @@
 <resources>
 
     <style name="Theme.StartApp" parent="Theme.SplashScreen">
-        <item name="postSplashScreenTheme">@style/Theme.FoodApp</item>
+        <item name="android:statusBarColor">@color/orange</item>
         <item name="android:windowSplashScreenBackground">@color/orange</item>
+        <item name="postSplashScreenTheme">@style/Theme.FoodApp</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/avd_foodies</item>
+
     </style>
 
 </resources>

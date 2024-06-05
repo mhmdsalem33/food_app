@@ -1,39 +1,25 @@
 package com.salem.foodapp.presentation.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.salem.foodapp.presentation.theme.FoodAppTheme
-import com.salem.foodapp.presentation.ui.activity.screens.auth.login.LoginScreen
-import com.salem.foodapp.presentation.ui.activity.screens.auth.onboarding.OnBoardingScreen
-import kotlin.time.measureTime
+import com.salem.foodapp.presentation.navigation.NestedNavGraph
+import com.salem.foodapp.presentation.ui.theme.FoodAppTheme
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen().setKeepOnScreenCondition{ false }
+        val splashScreen = installSplashScreen()
+        splashScreen.setKeepOnScreenCondition { false }
+
         super.onCreate(savedInstanceState)
         setContent {
-
             FoodAppTheme {
-//                Scaffold(
-//                    modifier = Modifier.fillMaxSize()
-//                )
-//                { innerPadding ->
-//                }
-//                OnBoardingScreen()
-
-                LoginScreen()
-
+                NestedNavGraph()
             }
         }
     }

@@ -14,12 +14,12 @@ import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.salem.foodapp.R
-import com.salem.foodapp.presentation.theme.AbeeZeeRegular
-import com.salem.foodapp.presentation.theme.gilroySemiBold
-import com.salem.foodapp.presentation.theme.omnesArabicMedium
-import com.salem.foodapp.presentation.theme.poppinsMedium
-import com.salem.foodapp.presentation.theme.poppinsSemiBold
-import com.salem.foodapp.presentation.theme.sofiaProLight
+import com.salem.foodapp.presentation.ui.theme.AbeeZeeRegular
+import com.salem.foodapp.presentation.ui.theme.gilroySemiBold
+import com.salem.foodapp.presentation.ui.theme.omnesArabicMedium
+import com.salem.foodapp.presentation.ui.theme.poppinsMedium
+import com.salem.foodapp.presentation.ui.theme.poppinsSemiBold
+import com.salem.foodapp.presentation.ui.theme.sofiaProLight
 
 
 @Composable
