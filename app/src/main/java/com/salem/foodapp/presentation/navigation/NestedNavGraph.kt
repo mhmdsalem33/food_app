@@ -1,5 +1,7 @@
 package com.salem.foodapp.presentation.navigation
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
@@ -12,7 +14,14 @@ fun NestedNavGraph( onBoardingViewModel: OnBoardingViewModel  ) {
 
 
 
-    NavHost( navController = navController  , startDestination =  determineStartDestination(onBoardingViewModel.isOnboardingCompleted) ) {
+    NavHost(
+        navController = navController  ,
+        startDestination =  determineStartDestination(onBoardingViewModel.isOnboardingCompleted) ,
+        enterTransition = {  EnterTransition.None }, // Disable enter transition
+        exitTransition = {  ExitTransition.None },   // Disable exit transition
+        popEnterTransition = { EnterTransition.None }, // Disable pop enter transition
+        popExitTransition = { ExitTransition.None }  // Disable pop exit transition
+    ) {
 
 
         authGraph( navController , onBoardingViewModel)

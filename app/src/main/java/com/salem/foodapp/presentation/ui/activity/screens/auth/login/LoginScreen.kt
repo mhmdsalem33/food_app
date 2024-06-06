@@ -77,12 +77,11 @@ fun LoginScreen(navController: NavHostController? = null) {
 
 
 
-
+//
     ChangeStatusBarColorAndNavigationBar(
         isStatusBarIconColorDark = true,
         isNavigationBarIconColorDark = true,
         isContentTopTransparent = true,
-
         )
 
     // main box
@@ -315,10 +314,10 @@ fun LoginScreen(navController: NavHostController? = null) {
     }
 
     // On Back Pressed
-    BackHandler(
-        onBackPressed = {
-            activity?.finish()
-        })
+//    BackHandler(
+//        onBackPressed = {
+//            activity?.finish()
+//        })
 
 }
 

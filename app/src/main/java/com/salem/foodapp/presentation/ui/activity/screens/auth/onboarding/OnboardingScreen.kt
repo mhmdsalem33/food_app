@@ -30,17 +30,13 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun OnboardingScreen(navController: NavController? = null, onBoardingViewModel: OnBoardingViewModel ? = null ) {
+fun OnboardingScreen(  navController: NavController? = null   ,  onBoardingViewModel: OnBoardingViewModel ? = null ) {
 
-
-//    val onBoardingViewModel: OnBoardingViewModel = viewModel() // Use viewModel() here
 
     ChangeStatusBarColorAndNavigationBar(
         isStatusBarIconColorDark = true,
         isNavigationBarIconColorDark = true,
-        isContentTopTransparent = false,
-        navigationBarBackgroundColor = colorResource(id = R.color.white).toArgb(),
-        statusBarBackgroundColor = colorResource(id = R.color.white).toArgb(),
+        isContentTopTransparent = true,
     )
 
     val pages = listOf(
@@ -69,7 +65,7 @@ fun OnboardingScreen(navController: NavController? = null, onBoardingViewModel: 
                             if (pagerState.currentPage < pages.size - 1) {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             } else {
-                                onBoardingViewModel?.setOnboardingCompleted()
+//                                onBoardingViewModel?.setOnboardingCompleted()
                                 navController?.navigate(LoginScreen)
                             }
                         }

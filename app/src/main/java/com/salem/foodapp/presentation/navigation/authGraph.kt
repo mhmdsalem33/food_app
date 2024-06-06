@@ -1,7 +1,12 @@
 package com.salem.foodapp.presentation.navigation
 
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -15,39 +20,12 @@ fun NavGraphBuilder.authGraph(
     navController: NavHostController,
     onBoardingViewModel: OnBoardingViewModel,
 ) {
-    composable<OnBoardingScreen>(
-        enterTransition = {
-            EnterTransition.None
-        },
-        exitTransition = {
-            ExitTransition.None
-        },
-        popExitTransition = {
-            ExitTransition.None
-        },
-        popEnterTransition = {
-            EnterTransition.None
-        }
-
-    )
+    composable<OnBoardingScreen>
     {
         OnboardingScreen(navController  , onBoardingViewModel )
     }
 
-    composable<LoginScreen>(
-        enterTransition = {
-            EnterTransition.None
-        },
-        exitTransition = {
-            ExitTransition.None
-        },
-        popExitTransition = {
-            ExitTransition.None
-        },
-        popEnterTransition = {
-            EnterTransition.None
-        }
-    )
+    composable<LoginScreen>
     {
         LoginScreen(navController)
     }
@@ -61,3 +39,18 @@ object LoginScreen
 @Serializable
 object OnBoardingScreen
 
+
+
+val noEnterTransition : AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition = {
+    fadeIn(
+        animationSpec = tween(durationMillis = 300),
+        initialAlpha = 0.99f
+    )
+}
+
+val noExitTransition : AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition = {
+    fadeOut(
+        animationSpec = tween(durationMillis = 300),
+        targetAlpha = 0.99f
+    )
+}

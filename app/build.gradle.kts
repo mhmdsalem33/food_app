@@ -109,5 +109,11 @@ dependencies {
 
 
 
+    // one tap sign in with google 
+    implementation("com.github.stevdza-san:OneTapCompose:1.0.12")
+
+
+
+
 
 }
