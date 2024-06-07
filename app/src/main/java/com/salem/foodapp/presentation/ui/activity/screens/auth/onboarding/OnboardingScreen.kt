@@ -55,7 +55,7 @@ fun OnboardingScreen(  navController: NavController? = null   ,  onBoardingViewM
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = with(LocalDensity.current) { 40.dp })
+                    .padding(bottom = with(LocalDensity.current) { 80.dp })
                 ,
                 contentAlignment = Alignment.Center
             ) {
@@ -65,7 +65,7 @@ fun OnboardingScreen(  navController: NavController? = null   ,  onBoardingViewM
                             if (pagerState.currentPage < pages.size - 1) {
                                 pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             } else {
-//                                onBoardingViewModel?.setOnboardingCompleted()
+                                onBoardingViewModel?.setOnboardingCompleted()
                                 navController?.navigate(LoginScreen)
                             }
                         }

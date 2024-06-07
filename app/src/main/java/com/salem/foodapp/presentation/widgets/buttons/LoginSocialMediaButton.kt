@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,16 +27,20 @@ import androidx.compose.ui.unit.sp
 import com.salem.foodapp.R
 import com.salem.foodapp.presentation.ui.theme.poppinsMedium
 import com.salem.foodapp.presentation.widgets.spaces.SpaceWidth15
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun SocialMediaLogin(
   textName : String = stringResource(id = R.string.face_book_capital),
   icon : Int   = R.drawable.face_book_icon,
-  onClick  : ()  -> Unit = {}
+  onClick  :  ()  -> Unit = {}
 ){
 
     val interactionSource = remember { MutableInteractionSource() }
+    val (isButtonEnabled, setButtonEnabled) = remember { mutableStateOf(true) }
 
+    val coroutineScope = rememberCoroutineScope()
     Row(
         modifier = Modifier
             .wrapContentWidth()
@@ -45,7 +51,15 @@ fun SocialMediaLogin(
                 interactionSource = interactionSource,
                 indication = null
             ) {
-                onClick()
+
+                if (isButtonEnabled) {
+                    onClick()
+                    setButtonEnabled(false)
+                    coroutineScope.launch {
+                        delay(2000)
+                        setButtonEnabled(true)
+                    }
+                }
             }
         ,
         verticalAlignment = Alignment.CenterVertically

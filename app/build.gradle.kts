@@ -5,12 +5,14 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
-
+//    id("com.google.gms.google-services")
 }
 
 android {
+
     namespace = "com.salem.foodapp"
     compileSdk = 34
+    compileSdkPreview = "VanillaIceCream"
 
     defaultConfig {
         applicationId = "com.salem.foodapp"
@@ -24,6 +26,8 @@ android {
             useSupportLibrary = true
         }
     }
+
+
 
     buildTypes {
         release {
@@ -64,6 +68,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.googleid)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -107,13 +112,17 @@ dependencies {
     ksp("androidx.hilt:hilt-compiler:1.0.0")
 
 
-
-
-    // one tap sign in with google 
+    // one tap sign in with google
     implementation("com.github.stevdza-san:OneTapCompose:1.0.12")
 
+    implementation("androidx.credentials:credentials:1.5.0-alpha01")
 
+    implementation("androidx.credentials:credentials-play-services-auth:1.5.0-alpha01")
+
+    implementation ("com.google.android.libraries.identity.googleid:googleid:1.1.0")
 
 
 
 }
+
+

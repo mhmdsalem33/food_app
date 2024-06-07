@@ -23,9 +23,11 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,6 +63,8 @@ import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight30
 import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight5
 import com.salem.foodapp.presentation.widgets.spaces.SpaceWidth20
 import com.salem.foodapp.presentation.widgets.spaces.SpaceWidth5
+import kotlinx.coroutines.delay
+
 
 @Composable
 fun LoginScreen(navController: NavHostController? = null) {
@@ -75,14 +79,15 @@ fun LoginScreen(navController: NavHostController? = null) {
 
     val interactionSource = remember { MutableInteractionSource() }
 
+    var loginWithGoogle by remember { mutableStateOf(false) }
 
 
-//
+
     ChangeStatusBarColorAndNavigationBar(
         isStatusBarIconColorDark = true,
         isNavigationBarIconColorDark = true,
         isContentTopTransparent = true,
-        )
+    )
 
     // main box
     Box(
@@ -226,7 +231,6 @@ fun LoginScreen(navController: NavHostController? = null) {
 
             var loadingLoginButtonState by remember { mutableStateOf(false) }
 
-
             // Login button
             LoadingButton(
                 onClick = { loadingLoginButtonState = true },
@@ -285,6 +289,7 @@ fun LoginScreen(navController: NavHostController? = null) {
             SpaceHeight30()
 
 
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
@@ -305,6 +310,7 @@ fun LoginScreen(navController: NavHostController? = null) {
                     textName = stringResource(id = R.string.google_capital),
                     icon = R.drawable.google_icon,
                     onClick = {
+                        loginWithGoogle = true
                         Log.e("testApp", "click on google")
                     }
                 )
@@ -313,11 +319,26 @@ fun LoginScreen(navController: NavHostController? = null) {
         }
     }
 
+
+    // Sign in with Google
+    if (loginWithGoogle){
+        SignInWithGoogle()
+    }
+
+    LaunchedEffect(loginWithGoogle) {
+        // Enable user to request sign in with google after 3 second
+        if (loginWithGoogle){
+            delay(3000)
+            loginWithGoogle = false
+        }
+    }
+
+
     // On Back Pressed
-//    BackHandler(
-//        onBackPressed = {
-//            activity?.finish()
-//        })
+    BackHandler(
+        onBackPressed = {
+            activity?.finish()
+        })
 
 }
 
@@ -327,3 +348,5 @@ fun LoginScreen(navController: NavHostController? = null) {
 fun LoginScreenPreview() {
     LoginScreen()
 }
+
+
