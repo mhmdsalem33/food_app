@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.salem.foodapp.R
 import com.salem.foodapp.presentation.extentions.BackHandler
+import com.salem.foodapp.presentation.navigation.HomeScreen
 import com.salem.foodapp.presentation.ui.theme.ChangeStatusBarColorAndNavigationBar
 import com.salem.foodapp.presentation.ui.theme.poppinsMedium
 import com.salem.foodapp.presentation.ui.theme.poppinsSemiBold
@@ -64,6 +65,7 @@ import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight5
 import com.salem.foodapp.presentation.widgets.spaces.SpaceWidth20
 import com.salem.foodapp.presentation.widgets.spaces.SpaceWidth5
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -80,7 +82,6 @@ fun LoginScreen(navController: NavHostController? = null) {
     val interactionSource = remember { MutableInteractionSource() }
 
     var loginWithGoogle by remember { mutableStateOf(false) }
-
 
 
     ChangeStatusBarColorAndNavigationBar(
@@ -135,7 +136,6 @@ fun LoginScreen(navController: NavHostController? = null) {
             )
 
             SpaceHeight5()
-
 
             // text  email
             TextSofiaPro(text = stringResource(id = R.string.email))
@@ -229,12 +229,26 @@ fun LoginScreen(navController: NavHostController? = null) {
 
             SpaceHeight30()
 
+            val coroutineScope = rememberCoroutineScope()
+
             var loadingLoginButtonState by remember { mutableStateOf(false) }
+            // Example usage
+            var errorLoginButtonState by remember { mutableStateOf(false) }
 
             // Login button
             LoadingButton(
-                onClick = { loadingLoginButtonState = true },
+                onClick = {
+                    loadingLoginButtonState = true
+                    coroutineScope.launch {
+                        delay(2000)
+                        loadingLoginButtonState = false
+                        errorLoginButtonState = true
+                        delay(1500)
+                        errorLoginButtonState = false
+                    }
+                },
                 loading = loadingLoginButtonState,
+                error = errorLoginButtonState,
             )
 
             SpaceHeight30()
@@ -321,13 +335,13 @@ fun LoginScreen(navController: NavHostController? = null) {
 
 
     // Sign in with Google
-    if (loginWithGoogle){
-        SignInWithGoogle()
+    if (loginWithGoogle) {
+        SignInWithGoogle(navController)
     }
 
     LaunchedEffect(loginWithGoogle) {
         // Enable user to request sign in with google after 3 second
-        if (loginWithGoogle){
+        if (loginWithGoogle) {
             delay(3000)
             loginWithGoogle = false
         }

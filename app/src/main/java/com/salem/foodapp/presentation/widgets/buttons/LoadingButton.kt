@@ -18,9 +18,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,14 +40,17 @@ import com.salem.foodapp.R
 import com.salem.foodapp.presentation.ui.theme.omnesArabicMedium
 import com.salem.foodapp.presentation.ui.effects.NoRippleInteractionSource
 
+
+
 @Composable
 fun LoadingButton(
     onClick: () -> Unit,
-    loading: Boolean,
+    loading: Boolean = false ,
+    error: Boolean = false ,
 ) {
 
     val transition = updateTransition(
-        targetState = loading,
+        targetState = if (error) "error" else if (loading) "loading" else "default",
         label = "master transition",
     )
     val horizontalContentPadding by transition.animateDp(
@@ -53,14 +59,13 @@ fun LoadingButton(
                 stiffness = SpringStiffness,
             )
         },
-        targetValueByState = { toLoading -> if (toLoading) 12.dp else 24.dp },
+        targetValueByState = { state -> if (state == "loading") 12.dp else 24.dp },
         label = "button's content padding",
     )
 
-
     Button(
         interactionSource = NoRippleInteractionSource(),
-                onClick = onClick,
+        onClick = onClick,
         contentPadding = PaddingValues(
             horizontal = horizontalContentPadding,
             vertical = 8.dp,
@@ -71,13 +76,16 @@ fun LoadingButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = colorResource(id = R.color.orange),
         ),
-        elevation =  ButtonDefaults.buttonElevation(
+        elevation = ButtonDefaults.buttonElevation(
             defaultElevation = 1.dp
         )
     ) {
         Box(contentAlignment = Alignment.Center) {
             LoadingContent(
                 loadingStateTransition = transition,
+            )
+            ErrorContent(
+                errorStateTransition = transition,
             )
             PrimaryContent(
                 loadingStateTransition = transition,
@@ -86,15 +94,13 @@ fun LoadingButton(
     }
 }
 
-
-
 @Composable
 private fun LoadingContent(
-    loadingStateTransition: Transition<Boolean>,
+    loadingStateTransition: Transition<String>,
 ) {
     loadingStateTransition.AnimatedVisibility(
-        visible = { loading -> loading },
-        enter = fadeIn(),
+        visible = { state -> state == "loading" },
+        enter = fadeIn(animationSpec = spring(stiffness = SpringStiffness)),
         exit = fadeOut(
             animationSpec = spring(
                 stiffness = SpringStiffness,
@@ -111,13 +117,36 @@ private fun LoadingContent(
     }
 }
 
+@Composable
+private fun ErrorContent(
+    errorStateTransition: Transition<String>,
+) {
+    errorStateTransition.AnimatedVisibility(
+        visible = { state -> state == "error" },
+        enter = fadeIn(animationSpec = spring(stiffness = SpringStiffness)),
+        exit = fadeOut(
+            animationSpec = spring(
+                stiffness = SpringStiffness,
+                visibilityThreshold = 0.10f,
+            ),
+        ),
+    ) {
+        Icon(
+            imageVector = Icons.Default.Close,
+            contentDescription =  "error icon",
+            modifier = Modifier.size(18.dp),
+            tint = LocalContentColor.current,
+        )
+    }
+}
+
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun PrimaryContent(
-    loadingStateTransition: Transition<Boolean>,
+    loadingStateTransition: Transition<String>,
 ) {
     loadingStateTransition.AnimatedVisibility(
-        visible = { loading -> !loading },
+        visible = { state -> state == "default" },
         enter = fadeIn() + expandHorizontally(
             animationSpec = spring(
                 stiffness = SpringStiffness,
@@ -134,7 +163,6 @@ private fun PrimaryContent(
         ) + shrinkHorizontally(
             animationSpec = spring(
                 stiffness = SpringStiffness,
-                // dampingRatio is not applicable here, size cannot become negative
                 visibilityThreshold = IntSize.VisibilityThreshold,
             ),
             shrinkTowards = Alignment.CenterHorizontally,
@@ -144,7 +172,7 @@ private fun PrimaryContent(
             text = stringResource(id = R.string.login).uppercase(),
             modifier = Modifier.padding(horizontal = 4.dp),
             fontFamily = omnesArabicMedium(),
-            )
+        )
     }
 }
 
@@ -161,6 +189,7 @@ private fun LoadingButtonPreview() {
         LoadingButton(
             onClick = {},
             loading = false,
+            error = false,
         )
     }
 }

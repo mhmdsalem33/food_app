@@ -12,23 +12,19 @@ fun NestedNavGraph( onBoardingViewModel: OnBoardingViewModel  ) {
 
     val navController = rememberNavController()
 
-
-
     NavHost(
         navController = navController  ,
         startDestination =  determineStartDestination(onBoardingViewModel.isOnboardingCompleted) ,
-        enterTransition = {  EnterTransition.None }, // Disable enter transition
-        exitTransition = {  ExitTransition.None },   // Disable exit transition
-        popEnterTransition = { EnterTransition.None }, // Disable pop enter transition
-        popExitTransition = { ExitTransition.None }  // Disable pop exit transition
+        enterTransition = {  EnterTransition.None },
+        exitTransition = {  ExitTransition.None },
+        popEnterTransition = { EnterTransition.None },
+        popExitTransition = { ExitTransition.None }
     ) {
 
-
         authGraph( navController , onBoardingViewModel)
-//        mainGraph(navController)
+        mainGraph(navController)
 
     }
-
 }
 
 

@@ -113,7 +113,7 @@ dependencies {
 
 
     // one tap sign in with google
-    implementation("com.github.stevdza-san:OneTapCompose:1.0.12")
+//    implementation("com.github.stevdza-san:OneTapCompose:1.0.12")
 
     implementation("androidx.credentials:credentials:1.5.0-alpha01")
 
