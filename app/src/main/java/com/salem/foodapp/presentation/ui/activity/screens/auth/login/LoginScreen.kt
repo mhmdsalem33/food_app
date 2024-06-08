@@ -49,8 +49,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.salem.foodapp.R
+import com.salem.foodapp.presentation.component.SlidingMenu
 import com.salem.foodapp.presentation.extentions.BackHandler
 import com.salem.foodapp.presentation.navigation.HomeScreen
+import com.salem.foodapp.presentation.navigation.SlidingMenu
 import com.salem.foodapp.presentation.ui.theme.ChangeStatusBarColorAndNavigationBar
 import com.salem.foodapp.presentation.ui.theme.poppinsMedium
 import com.salem.foodapp.presentation.ui.theme.poppinsSemiBold
@@ -238,6 +240,8 @@ fun LoginScreen(navController: NavHostController? = null) {
             // Login button
             LoadingButton(
                 onClick = {
+                    navController?.navigate(SlidingMenu)
+
                     loadingLoginButtonState = true
                     coroutineScope.launch {
                         delay(2000)

@@ -15,6 +15,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingExcept
 import com.salem.foodapp.presentation.navigation.HomeScreen
 import org.json.JSONException
 
+
 val SIGNINTAG  = "testSIGNIN"
 
 @Composable
@@ -56,7 +57,7 @@ fun handleSignIn(result: GetCredentialResponse, navController: NavHostController
             navController?.navigate(HomeScreen)
         }
 
-        Log.d(SIGNINTAG , "token id $idToken" )
+        Log.d(SIGNINTAG  ,  "token id $idToken"  )
 
     } catch (e: GoogleIdTokenParsingException) {
         Log.e(SIGNINTAG, "Received an invalid google id token response",  e  )
