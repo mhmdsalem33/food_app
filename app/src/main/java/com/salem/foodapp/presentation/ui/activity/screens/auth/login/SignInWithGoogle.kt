@@ -15,6 +15,7 @@ import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingExcept
 import com.salem.foodapp.presentation.navigation.HomeScreen
 import org.json.JSONException
 
+const val webClientID = "394883293025-l37pgtng490pee4mb1tvj1vvrrtta8hp.apps.googleusercontent.com"
 
 val SIGNINTAG  = "testSIGNIN"
 
@@ -52,7 +53,7 @@ fun handleSignIn(result: GetCredentialResponse, navController: NavHostController
         val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
         val idToken = googleIdTokenCredential.idToken
 
-        // navigate to home screen
+        // navigate to home screen if sign in is success
         if (idToken.isNotEmpty()){
             navController?.navigate(HomeScreen)
         }

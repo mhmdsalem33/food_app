@@ -12,7 +12,6 @@ fun PreviewHomeComponent() {
     SlidingMenu()
 }
 
-
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 fun PreviewHomeScreen() {
