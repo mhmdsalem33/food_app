@@ -1,4 +1,4 @@
-package com.salem.foodapp.data.di
+package com.salem.foodapp.data.di.hilt
 
 import android.content.Context
 import com.salem.foodapp.data.data_source.local.preferences.shared_preferences.SharedPreferencesManager

@@ -2,6 +2,7 @@ package com.salem.foodapp.presentation.ui.activity.screens.auth.login
 
 import android.app.Activity
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,6 +25,7 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,16 +50,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.sa.cap.data.core.ResponseState
 import com.salem.foodapp.R
-import com.salem.foodapp.presentation.component.SlidingMenu
+import com.salem.foodapp.data.models.auth.login.LoginRequest
+import com.salem.foodapp.data.models.auth.login.LoginResponse
 import com.salem.foodapp.presentation.extentions.BackHandler
-import com.salem.foodapp.presentation.navigation.HomeScreen
 import com.salem.foodapp.presentation.navigation.SlidingMenu
 import com.salem.foodapp.presentation.ui.theme.ChangeStatusBarColorAndNavigationBar
 import com.salem.foodapp.presentation.ui.theme.poppinsMedium
 import com.salem.foodapp.presentation.ui.theme.poppinsSemiBold
-import com.salem.foodapp.presentation.widgets.CustomOutlinedTextField
-import com.salem.foodapp.presentation.widgets.TextSofiaPro
+import com.salem.foodapp.presentation.widgets.text_fields.CustomOutlinedTextField
+import com.salem.foodapp.presentation.widgets.texts.TextSofiaPro
 import com.salem.foodapp.presentation.widgets.buttons.LoadingButton
 import com.salem.foodapp.presentation.widgets.buttons.SocialMediaLogin
 import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight15
@@ -67,12 +70,16 @@ import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight5
 import com.salem.foodapp.presentation.widgets.spaces.SpaceWidth20
 import com.salem.foodapp.presentation.widgets.spaces.SpaceWidth5
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import org.koin.androidx.compose.koinViewModel
 
 
 @Composable
-fun LoginScreen(navController: NavHostController? = null) {
+@Preview
+fun LoginScreen(
+    navController: NavHostController? = null,
+    loginViewModel: LoginViewModel = koinViewModel()
 
+) {
 
     // activity
     val activity = (LocalContext.current as? Activity)
@@ -91,6 +98,7 @@ fun LoginScreen(navController: NavHostController? = null) {
         isNavigationBarIconColorDark = true,
         isContentTopTransparent = true,
     )
+
 
     // main box
     Box(
@@ -130,6 +138,7 @@ fun LoginScreen(navController: NavHostController? = null) {
 //            verticalArrangement = Arrangement.Center
         )
         {
+
             // text login
             Text(
                 text = stringResource(id = R.string.login),
@@ -145,7 +154,7 @@ fun LoginScreen(navController: NavHostController? = null) {
             SpaceHeight15()
 
             // EMAIL  Outline text field
-            var email by remember { mutableStateOf("") }
+            var email by remember { mutableStateOf("emilys") }
 
             CustomOutlinedTextField(
                 value = email,
@@ -180,7 +189,7 @@ fun LoginScreen(navController: NavHostController? = null) {
 
             SpaceHeight15()
 
-            var password by remember { mutableStateOf("") }
+            var password by remember { mutableStateOf("emilyspass") }
             var isPasswordVisible by remember { mutableStateOf(false) }
 
             // outlined password text field
@@ -231,29 +240,42 @@ fun LoginScreen(navController: NavHostController? = null) {
 
             SpaceHeight30()
 
-            val coroutineScope = rememberCoroutineScope()
+
+            val loginState by loginViewModel.getLoginRemoteResponse.collectAsState()
 
             var loadingLoginButtonState by remember { mutableStateOf(false) }
-            // Example usage
             var errorLoginButtonState by remember { mutableStateOf(false) }
 
             // Login button
             LoadingButton(
                 onClick = {
-                    navController?.navigate(SlidingMenu)
+                    keyboardController?.hide()
+                    localFocusManager.clearFocus()
 
-                    loadingLoginButtonState = true
-                    coroutineScope.launch {
-                        delay(2000)
-                        loadingLoginButtonState = false
-                        errorLoginButtonState = true
-                        delay(1500)
-                        errorLoginButtonState = false
+                    if (email.isNotEmpty() && password.isNotEmpty()) {
+                        loginViewModel.login(LoginRequest(email, password))
                     }
                 },
                 loading = loadingLoginButtonState,
                 error = errorLoginButtonState,
             )
+
+            val context = LocalContext.current
+
+            // Login State
+            LaunchedEffect(loginState) {
+                handleLoginState(
+                    loginState = loginState,
+                    onLoading  = { isLoading -> loadingLoginButtonState = isLoading },
+                    onSuccess  = {
+                        navController?.navigate(SlidingMenu){ popUpTo(0) }
+                    },
+                    onError = { hasError ->
+                        errorLoginButtonState = hasError
+                        Toast.makeText(context, loginState.message, Toast.LENGTH_SHORT).show()
+                    }
+                )
+            }
 
             SpaceHeight30()
 
@@ -285,9 +307,7 @@ fun LoginScreen(navController: NavHostController? = null) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Divider(
-                    modifier = Modifier.weight(1f)
-                )
+                Divider(modifier = Modifier.weight(1f))
 
                 SpaceWidth20()
 
@@ -351,15 +371,38 @@ fun LoginScreen(navController: NavHostController? = null) {
         }
     }
 
-
     // On Back Pressed
     BackHandler(
         onBackPressed = {
             activity?.finish()
         })
 
+
 }
 
+private suspend fun handleLoginState(
+    loginState: ResponseState<LoginResponse>,
+    onLoading: (Boolean) -> Unit,
+    onSuccess: () -> Unit,
+    onError: (Boolean) -> Unit
+) {
+    when (loginState) {
+        is ResponseState.Loading -> onLoading(true)
+        is ResponseState.Success -> {
+            onLoading(false)
+            onSuccess()
+        }
+
+        is ResponseState.Error -> {
+            onLoading(false)
+            onError(true)
+            delay(1000)
+            onError(false)
+        }
+
+        else -> onLoading(false)
+    }
+}
 
 @Preview(showBackground = true)
 @Composable

@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -35,7 +36,7 @@ import com.salem.foodapp.R
 import com.salem.foodapp.domain.models.main.home.HomeMenu
 import com.salem.foodapp.domain.models.main.home.HomeMenuAction
 import com.salem.foodapp.domain.models.main.home.MenuState
-import com.salem.foodapp.presentation.ui.activity.screens.main.HomeScreen
+import com.salem.foodapp.presentation.ui.activity.screens.main.home_screen.HomeScreen
 import com.salem.foodapp.presentation.ui.activity.screens.main.profile.ProfileScreen
 import com.salem.foodapp.presentation.ui.theme.gilroySemiBold
 import com.salem.foodapp.presentation.widgets.spaces.SpaceHeight25
@@ -257,11 +258,14 @@ fun SlidingMenu() {
                     )
                 }
                 .clip(shape = RoundedCornerShape(roundness.value))
-                .background(color = colorResource(id = R.color.gray_9))
+//                .background(color = colorResource(id = R.color.gray_9))
+                .background(
+                    Color(0xFFF3F6FA).copy(.8f), shape = RoundedCornerShape(20.dp)
+                )
+//                .background(color = colorResource(id = R.color.gray_10))
 
         )
         {
-
             SpaceHeight25()
             Row(
                 modifier = Modifier
@@ -430,6 +434,7 @@ fun MenuComponent(
             )
         }
 
+
         //logout
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -455,13 +460,13 @@ fun MenuComponent(
         }
 
         //app version
-        Text(
-            text = "App version: 124",
-            color = Color.White.copy(alpha = .4f),
-            fontSize = 16.sp,
-            modifier = Modifier.padding(start = 16.dp),
-            fontWeight = FontWeight.Medium,
-        )
+//        Text(
+//            text = "App version: 124",
+//            color = Color.Black.copy(alpha = .2f),
+//            fontSize = 16.sp,
+//            modifier = Modifier.padding(start = 16.dp),
+//            fontWeight = FontWeight.Medium,
+//        )
 
     }
 

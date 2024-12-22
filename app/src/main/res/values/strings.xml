@@ -15,4 +15,6 @@
     <string name="face_book_capital">FACEBOOK</string>
     <string name="google_capital">GOOGLE</string>
     <string name="mu_orders">My Orders</string>
+    <string name="search">Search</string>
+    <string name="find_fav_fod">Find your favorite food</string>
 </resources>

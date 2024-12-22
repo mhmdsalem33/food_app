@@ -105,11 +105,30 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1")
 
 
-    //Dagger - Hilt
+
+    // Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.48")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-    ksp("com.google.dagger:hilt-compiler:2.48")
-    ksp("androidx.hilt:hilt-compiler:1.0.0")
+    ksp("com.google.dagger:hilt-android-compiler:2.48")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+
+    // okhttp
+    implementation ("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
+
+    // gson
+    implementation ("com.google.code.gson:gson:2.9.0")
+    //retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.retrofit:adapter-rxjava:2.0.0-beta1")
+
+
+
+
+
 
 
     // one tap sign in with google
@@ -120,6 +139,34 @@ dependencies {
     implementation("androidx.credentials:credentials-play-services-auth:1.5.0-alpha01")
 
     implementation ("com.google.android.libraries.identity.googleid:googleid:1.1.0")
+
+
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+
+    // loading progress bar
+    implementation ("com.github.MahboubehSeyedpour:jetpack-loading:1.1.0")
+
+
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.0-alpha13")
+
+
+
+    // Ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.kotlinx.serialization.json)
+    implementation("io.ktor:ktor-client-logging:2.3.3")
+
+    // Koin
+    implementation("io.insert-koin:koin-core:3.4.0")
+    implementation("io.insert-koin:koin-android:3.4.0")
+    implementation ("io.insert-koin:koin-androidx-compose:3.4.0")
+
+
+
 
 
 

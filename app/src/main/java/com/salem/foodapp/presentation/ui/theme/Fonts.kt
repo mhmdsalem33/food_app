@@ -10,6 +10,10 @@ fun gilroySemiBold() = FontFamily(
     Font(R.font.gilroy_semi_bold, FontWeight.SemiBold)
 )
 
+fun ttComponentFont() = FontFamily(
+    Font(R.font.tt_component_fond)
+)
+
 fun AbeeZeeRegular() = FontFamily(
     Font(R.font.abee_zee_regular)
 )

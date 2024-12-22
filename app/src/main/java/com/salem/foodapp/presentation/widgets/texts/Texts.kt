@@ -1,4 +1,4 @@
-package com.salem.foodapp.presentation.widgets
+package com.salem.foodapp.presentation.widgets.texts
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

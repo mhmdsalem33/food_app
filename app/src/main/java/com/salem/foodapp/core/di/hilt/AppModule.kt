@@ -1,4 +1,4 @@
-package com.salem.foodapp.core.di
+package com.salem.foodapp.core.di.hilt
 
 import android.content.Context
 import dagger.Module
